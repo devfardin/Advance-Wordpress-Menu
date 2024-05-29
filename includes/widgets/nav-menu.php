@@ -351,10 +351,23 @@ class Elementor_nav_menu extends \Elementor\Widget_Base {
                 padding:0;
                 display:flex;
                 flex-wrap:wrap;
+                postion:relative;
                               
            }
            .cf-plugin-nav-menu .menu .sub-menu{
-                display:none;
+            list-style: none;
+            background: red;
+            margin: 0;
+            position: absolute;
+            top: 37px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 22px !important;
+            width: 16%;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
            }
            .cf-plugin-nav-menu .menu .menu-item a{
                 transition: all 0.3s;
