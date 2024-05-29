@@ -98,10 +98,91 @@ class Elementor_nav_menu extends \Elementor\Widget_Base {
         $this->start_controls_section(
 			'style_section',
 			[
-				'label' => esc_html__( 'Style', 'textdomain' ),
+				'label' => esc_html__( 'Menu Style', 'cf-plugin' ),
 				'tab' => \Elementor\Controls_Manager::TAB_STYLE,
 			]
 		);
+        $this->add_control(
+			'cf-plugin-space-between',
+			[
+				'label' => esc_html__( 'Space Between', 'cf-plugin' ),
+				'type' => \Elementor\Controls_Manager::SLIDER,
+				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
+				'range' => [
+					'px' => [
+						'min' => 0,
+						'max' => 1000,
+						'step' => 5,
+					],
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					],
+				],
+				'default' => [
+					'unit' => 'px',
+					'size' => 50,
+				],
+				'selectors' => [
+					'{{WRAPPER}} .cf-plugin-nav-menu .menu' => 'column-gap: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+        $this->add_control(
+			'cf-plugin-Vertical-Space',
+			[
+				'label' => esc_html__( 'Vertical Space', 'cf-plugin' ),
+				'type' => \Elementor\Controls_Manager::SLIDER,
+				'size_units' => [ 'px', '%', 'em', 'rem', 'custom' ],
+				'range' => [
+					'px' => [
+						'min' => 0,
+						'max' => 1000,
+						'step' => 5,
+					],
+					'%' => [
+						'min' => 0,
+						'max' => 100,
+					],
+				],
+				'default' => [
+					'unit' => 'px',
+					'size' => 50,
+				],
+				'selectors' => [
+					'{{WRAPPER}} .cf-plugin-nav-menu .menu' => 'row-gap: {{SIZE}}{{UNIT}};',
+				],
+			]
+		);
+        $this->add_control(
+			'cf-plugin-link-hover-effect',
+			[
+				'label' => esc_html__( 'Link Hover Effect', 'cf-plugin' ),
+				'type' => \Elementor\Controls_Manager::SELECT,
+				'default' => 'solid',
+				'options' => [
+					'none' => esc_html__( 'None', 'cf-plugin' ),
+					'underline'  => esc_html__( 'Underline', 'cf-plugin' ),
+					'overline' => esc_html__( 'Overline', 'cf-plugin' ),
+					'line-through' => esc_html__( 'line through', 'cf-plugin' ),
+				],
+				'selectors' => [
+					'{{WRAPPER}} .cf-plugin-nav-menu .menu .menu-item a:hover' => 'text-decoration: {{VALUE}};',
+				],
+			]
+		);
+
+        $this->add_group_control(
+			\Elementor\Group_Control_Typography::get_type(),
+			[
+				'name' => 'content_typography',
+				'selector' => '{{WRAPPER}} .cf-plugin-nav-menu .menu .menu-item a',
+			]
+		);
+
+
+
+
         $this->end_controls_section();
         // Style Tab End
 
@@ -132,7 +213,7 @@ class Elementor_nav_menu extends \Elementor\Widget_Base {
                 margin:0;
                 padding:0;
                 display:flex;
-                gap:20px;
+                flex-wrap:wrap;
                               
            }
            .cf-plugin-nav-menu .menu .sub-menu{
