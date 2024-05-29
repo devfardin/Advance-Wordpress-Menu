@@ -111,8 +111,8 @@ class Elementor_nav_menu extends \Elementor\Widget_Base {
 				'range' => [
 					'px' => [
 						'min' => 0,
-						'max' => 1000,
-						'step' => 5,
+						'max' => 500,
+						'step' => 1,
 					],
 					'%' => [
 						'min' => 0,
@@ -137,8 +137,8 @@ class Elementor_nav_menu extends \Elementor\Widget_Base {
 				'range' => [
 					'px' => [
 						'min' => 0,
-						'max' => 1000,
-						'step' => 5,
+						'max' => 500,
+						'step' => 1,
 					],
 					'%' => [
 						'min' => 0,
@@ -180,6 +180,143 @@ class Elementor_nav_menu extends \Elementor\Widget_Base {
 			]
 		);
 
+        // Items Active Hover and Normal Style Start 
+        $this->start_controls_tabs(
+			'style_tabs'
+		);
+
+            // Normal Style start
+            $this->start_controls_tab(
+                'style_normal_tab',
+                [
+                    'label' => esc_html__( 'Normal', 'textdomain' ),
+                ]
+            );
+            $this->add_control(
+                'text_normal_color',
+                [
+                    'label' => esc_html__( 'Text Color', 'textdomain' ),
+                    'type' => \Elementor\Controls_Manager::COLOR,
+                    'selectors' => [
+                        '{{WRAPPER}} .cf-plugin-nav-menu .menu .menu-item a' => 'color: {{VALUE}}',
+                    ],
+                ]
+            );
+            $this->add_group_control(
+                \Elementor\Group_Control_Background::get_type(),
+                [
+                    'name' => 'normal_background',
+                    'types' => [ 'classic', 'gradient' ],
+                    'exclude' => ['image'],
+                    'selector' => '{{WRAPPER}} .cf-plugin-nav-menu .menu .menu-item a',
+                ]
+            );
+            $this->add_control(
+                'cf-plugin_padding',
+                [
+                    'label' => esc_html__( 'Padding', 'textdomain' ),
+                    'type' => \Elementor\Controls_Manager::DIMENSIONS,
+                    'size_units' => [ 'px', '%'],
+                    'default' => [
+                        'top' => 0,
+                        'right' => 0,
+                        'bottom' => 0,
+                        'left' => 0,
+                        'unit' => 'px',
+                        'isLinked' => true,
+                    ],
+                    'selectors' => [
+                        '{{WRAPPER}} .cf-plugin-nav-menu .menu .menu-item a' => 'padding: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    ],
+                ]
+            );
+            $this->add_control(
+                'cf-plugin_border_radius',
+                [
+                    'label' => esc_html__( 'Border Radius', 'textdomain' ),
+                    'type' => \Elementor\Controls_Manager::DIMENSIONS,
+                    'size_units' => [ 'px', '%'],
+                    'default' => [
+                        'top' => 0,
+                        'right' => 0,
+                        'bottom' => 0,
+                        'left' => 0,
+                        'unit' => 'px',
+                        'isLinked' => true,
+                    ],
+                    'selectors' => [
+                        '{{WRAPPER}} .cf-plugin-nav-menu .menu .menu-item a' => 'border-radius: {{TOP}}{{UNIT}} {{RIGHT}}{{UNIT}} {{BOTTOM}}{{UNIT}} {{LEFT}}{{UNIT}};',
+                    ],
+                ]
+            );
+            $this->end_controls_tab();
+            // Normal Style End
+
+            // ---------------------------------------------
+            // Hover Style start
+            $this->start_controls_tab(
+                'style_Hover_tab',
+                [
+                    'label' => esc_html__( 'Hover', 'textdomain' ),
+                ]
+            );
+            $this->add_control(
+                'text_hover_color',
+                [
+                    'label' => esc_html__( 'Text Color', 'textdomain' ),
+                    'type' => \Elementor\Controls_Manager::COLOR,
+                    'selectors' => [
+                        '{{WRAPPER}} .cf-plugin-nav-menu .menu .menu-item a:hover' => 'color: {{VALUE}}',
+                    ],
+                ]
+            );
+            $this->add_group_control(
+                \Elementor\Group_Control_Background::get_type(),
+                [
+                    'name' => 'hover_background',
+                    'types' => [ 'classic', 'gradient' ],
+                    'exclude' => ['image'],
+                    'selector' => '{{WRAPPER}} .cf-plugin-nav-menu .menu .menu-item a:hover',
+                ]
+            );
+            $this->end_controls_tab();
+            // Hover Style End
+
+            // ---------------------------------------------
+            // Active Style start
+            $this->start_controls_tab(
+                'style_active_tab',
+                [
+                    'label' => esc_html__( 'Active', 'textdomain' ),
+                ]
+            );
+            $this->add_control(
+                'text_active_color',
+                [
+                    'label' => esc_html__( 'Text Color', 'textdomain' ),
+                    'type' => \Elementor\Controls_Manager::COLOR,
+                    'selectors' => [
+                        '{{WRAPPER}} .cf-plugin-nav-menu .menu .current-menu-item a' => 'color: {{VALUE}}',
+                    ],
+                ]
+            );
+            $this->add_group_control(
+                \Elementor\Group_Control_Background::get_type(),
+                [
+                    'name' => 'active_background',
+                    'types' => [ 'classic', 'gradient' ],
+                    'exclude' => ['image'],
+                    'selector' => '{{WRAPPER}} .cf-plugin-nav-menu .menu .current-menu-item a',
+                ]
+            );
+            $this->end_controls_tab();
+            // Active Style End
+
+            // ------------------------------------------------
+
+            $this->end_controls_tabs();
+            // Items Active Hover and Normal Style End
+            // ========================================================
 
 
 
@@ -220,12 +357,6 @@ class Elementor_nav_menu extends \Elementor\Widget_Base {
                 display:none;
            }
            .cf-plugin-nav-menu .menu .menu-item a{
-                color:  #010101;
-                font-family: Gilroy;
-                font-size: 20px;
-                font-style: normal;
-                font-weight: 400;
-                line-height: 32px;
                 transition: all 0.3s;
            }
            .cf-plugin-nav-menu .menu .menu-item a:hover{
